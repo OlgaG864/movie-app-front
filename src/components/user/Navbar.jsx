@@ -3,11 +3,11 @@ import Container from "../Container";
 
 export default function Navbar() {
   return (
-    <div>
-      <div className="bg-second">
-        <Container className="p-2">
+    <>
+      <div className="bg-second shadow-sm shadow-gray-500">
+        <Container className=" p-2">
           <div className="flex justify-between items-center">
-            <i class="bi bi-film">5 Star Movie</i>
+            <i className="bi bi-film text-white">5 Star Movie</i>
             <ul className="flex items-center space-x-2">
               <li>
                 <button className="bg-dark-subtle p-1 rounded">
@@ -26,6 +26,6 @@ export default function Navbar() {
           </div>
         </Container>
       </div>
-    </div>
+    </>
   );
 }

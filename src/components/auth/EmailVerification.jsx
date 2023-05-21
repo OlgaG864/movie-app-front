@@ -5,6 +5,7 @@ import FormInput from "../form/FormInput";
 import Submit from "../form/Submit";
 import { Link } from "react-router-dom";
 import CustomLink from "../CustomLink";
+import FormContainer from "../form/FormContainer";
 
 const OTP_LENGTH = 6;
 
@@ -42,7 +43,7 @@ export default function EmailVerification() {
     input.current?.focus();
   }, [activeOtpIndex]);
   return (
-    <div className="fixed inset-0 bg-main -z-20 flex justify-center items-center">
+    <FormContainer>
       <Container>
         <form className="bg-second rounded p-6  space-y-6 ">
           <div>
@@ -70,6 +71,6 @@ export default function EmailVerification() {
           <Submit value="Send link" />
         </form>
       </Container>
-    </div>
+    </FormContainer>
   );
 }

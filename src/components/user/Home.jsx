@@ -1,9 +1,30 @@
 import React from "react";
+import { useAuth } from "../../hooks";
+import Container from "../Container";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const { authInfo } = useAuth();
+  const { isLoggedIn } = authInfo;
+  const isVerified = authInfo.profile?.isVerified;
+  const navigate = useNavigate();
+  const navigateToVerification = () => {
+    navigate("/verification", { state: { user: authInfo.profile } });
+  };
+
   return (
-    <div>
-      <h1 className="text-xl">Home page</h1>
-    </div>
+    <Container>
+      {isLoggedIn && !isVerified ? (
+        <p className="text-lg text-center bg-blue-50 p-2">
+          It looks like you haven't verified your account,{" "}
+          <button
+            onClick={navigateToVerification}
+            className="text-blue-500 font-semibold hover:underline"
+          >
+            click here to verify your account.
+          </button>
+        </p>
+      ) : null}
+    </Container>
   );
 }

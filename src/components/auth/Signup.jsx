@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { createUser } from "../../api/auth";
+import { useAuth, useNotification } from "../../hooks";
 import Container from "../Container";
 import CustomLink from "../CustomLink";
 import FormContainer from "../form/FormContainer";
 import FormInput from "../form/FormInput";
 import Submit from "../form/Submit";
 import Title from "../form/Title";
-import { createUser } from "../../api/auth";
 
 const validateUserInfo = ({ name, email, password }) => {
   const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -32,6 +33,11 @@ export default function Signup() {
     password: "",
   });
 
+  const navigate = useNavigate();
+  const { updateNotification } = useNotification();
+  const { authInfo } = useAuth();
+  const { isLoggedIn } = authInfo;
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUserInfo({ ...userInfo, [name]: value });
@@ -41,13 +47,21 @@ export default function Signup() {
     e.preventDefault();
     const { ok, error } = validateUserInfo(userInfo);
 
-    if (!ok) return console.log(error);
+    if (!ok) return updateNotification("error", error);
 
     const response = await createUser(userInfo);
-
     if (response.error) return console.log(response.error);
-    console.log(response.user);
+
+    navigate("/verification", {
+      state: { user: response.user },
+      replace: true,
+    });
   };
+
+  useEffect(() => {
+    // we want to move our user to somewhere else
+    if (isLoggedIn) navigate("/");
+  }, [isLoggedIn]);
 
   const { name, email, password } = userInfo;
 

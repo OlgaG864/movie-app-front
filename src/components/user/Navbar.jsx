@@ -1,23 +1,27 @@
 import React from "react";
 import Container from "../Container";
 import { Link } from "react-router-dom";
-import { useTheme } from "../../hooks";
+import { useAuth, useTheme } from "../../hooks";
 
 export default function Navbar() {
   const { toggleTheme } = useTheme();
+  const { authInfo, handleLogout } = useAuth();
+  const { isLoggedIn } = authInfo;
   return (
     <>
       <div className="bg-second shadow-sm shadow-gray-500">
         <Container className=" p-2">
           <div className="flex justify-between items-center">
             <Link to="/">
-              <i className="bi bi-film text-white">5 Star Movie</i>
+              <li className="text-white text-xl outline-none">
+                5<i className="bi bi-stars text-xl text-white">Movie</i>
+              </li>
             </Link>
             <ul className="flex items-center space-x-2">
               <li>
                 <button
                   onClick={toggleTheme}
-                  className="bg-dark-subtle dark:bg-white p-1 rounded"
+                  className="dark:bg-white bg-dark-subtle p-1 rounded"
                 >
                   <i className="bi bi-brightness-high-fill"></i>
                 </button>
@@ -29,18 +33,23 @@ export default function Navbar() {
                   placeholder="search..."
                 ></input>
               </li>
+
               <li>
-                <Link
-                  className="text-white font-semibold text-lg"
-                  to="/auth/signin"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link className="text-white font-semibold text-lg" to="/signup">
-                  Signup
-                </Link>
+                {isLoggedIn ? (
+                  <button
+                    onClick={handleLogout}
+                    className="text-white font-semibold text-lg"
+                  >
+                    Log out
+                  </button>
+                ) : (
+                  <Link
+                    className="text-white font-semibold text-lg"
+                    to="/auth/signin"
+                  >
+                    Login
+                  </Link>
+                )}
               </li>
             </ul>
           </div>

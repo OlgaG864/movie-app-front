@@ -1,13 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks";
 import Container from "../Container";
-import { useNavigate } from "react-router-dom";
 
-export default function Home() {
+export default function NotVerified() {
   const { authInfo } = useAuth();
   const { isLoggedIn } = authInfo;
   const isVerified = authInfo.profile?.isVerified;
+
   const navigate = useNavigate();
+
   const navigateToVerification = () => {
     navigate("/verification", { state: { user: authInfo.profile } });
   };

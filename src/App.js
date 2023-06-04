@@ -5,7 +5,7 @@ import Signup from "./components/auth/Signup";
 import EmailVerification from "./components/auth/EmailVerification";
 import ForgetPassword from "./components/auth/ForgetPassword";
 import ConfirmPassword from "./components/auth/ConfirmPassword";
-import Home from "./components/user/Home";
+import Home from "./components/Home";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 

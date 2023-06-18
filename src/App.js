@@ -8,8 +8,13 @@ import ConfirmPassword from "./components/auth/ConfirmPassword";
 import Home from "./components/Home";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
+import { useAuth } from "./hooks";
+import AdminNavigator from "./navigator/AdminNavigator";
 
 function App() {
+  const { authInfo } = useAuth();
+  const isAdmin = authInfo.profile?.role === "admin";
+  if (isAdmin) return <AdminNavigator />;
   return (
     <>
       <Navbar />

@@ -33,8 +33,8 @@ export default function EmailVerification() {
   const { updateNotification } = useNotification();
 
   const { state } = useLocation();
-  const user = state?.user;
 
+  const user = state?.user;
   const navigate = useNavigate();
 
   const focusNextInputField = (index) => {
@@ -59,7 +59,7 @@ export default function EmailVerification() {
   };
 
   const handleOTPResend = async () => {
-    const { error, message } = await resendEmailVerificationToken(user._id);
+    const { error, message } = await resendEmailVerificationToken(user.id);
 
     if (error) return updateNotification("error", error);
 
@@ -87,7 +87,7 @@ export default function EmailVerification() {
       user: userResponse,
     } = await verifyUserEmail({
       OTP: otp.join(""),
-      userId: user._id,
+      userId: user.id,
     });
     if (error) return updateNotification("error", error);
 

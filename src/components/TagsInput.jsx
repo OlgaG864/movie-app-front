@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-export default function TagsInput() {
+export default function TagsInput({ name, value, onChange }) {
   const [tag, setTag] = useState("");
   const [tags, setTags] = useState([]);
 
@@ -10,6 +10,8 @@ export default function TagsInput() {
   const handleOnChange = ({ target }) => {
     const { value } = target;
     if (value !== ",") setTag(value);
+
+    onChange(tags);
   };
 
   const handleKeyDown = ({ key }) => {
@@ -24,6 +26,7 @@ export default function TagsInput() {
 
     if (key === "Backspace" && !tag && tags.length) {
       const newTags = tags.filter((_, index) => index !== tags.length - 1);
+
       setTags([...newTags]);
     }
   };
@@ -50,7 +53,11 @@ export default function TagsInput() {
   };
 
   useEffect(() => {
-    input.current?.scrollIntoView();
+    if (value.length) setTags(value);
+  }, [value]);
+
+  useEffect(() => {
+    input.current?.scrollIntoView(false);
   }, [tag]);
 
   return (
@@ -68,7 +75,8 @@ export default function TagsInput() {
         <input
           ref={input}
           type="text"
-          className="h-full flex-grow bg-transparent outline-none dark:text-black"
+          id={name}
+          className="h-full flex-grow bg-transparent outline-none dark:text-white"
           placeholder="Tag one, Tag two"
           value={tag}
           onChange={handleOnChange}
@@ -85,7 +93,7 @@ const Tag = ({ children, onClick }) => {
     <span className="dark:bg-white bg-main dark:text-main text-white flex items-center text-sm px-1 whitespace-nowrap">
       {children}
       <button onClick={onClick} type="button">
-        <i className="bi bi-x text-white"></i>
+        <i className="bi bi-x"></i>
       </button>
     </span>
   );

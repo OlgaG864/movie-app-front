@@ -31,15 +31,13 @@ export default function CastModal({
                     {roleAs}
                   </p>
                 </div>
-                {leadActor && (
-                  <i className="bi bi-check text-light-subtle dark:text-dark-subtle"></i>
-                )}
+                {leadActor && <i className="bi bi-bag-check"></i>}
               </div>
               <button
                 onClick={() => onRemoveClick(id)}
                 className="dark:text-white text-main hover:opacity-80 transition p-2"
               >
-                <i className="bi bi-x"></i>
+                <i className="bi bi-x-circle-fill"></i>
               </button>
             </div>
           );

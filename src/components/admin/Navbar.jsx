@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks";
 export default function Navbar() {
   const { handleLogout } = useAuth();
   return (
-    <nav className="w-48 min-h-screen bg-secondary border-r border-gray-500 flex flex-col justify-between">
+    <nav className="w-48 min-h-screen bg-second border-r border-gray-500 flex flex-col justify-between">
       <div className="flex flex-col justify-between pl-5 h-screen sticky top-0">
         <ul className="pl-5">
           <li className="mb-8">

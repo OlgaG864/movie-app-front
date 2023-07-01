@@ -15,7 +15,8 @@ export default function Header({ onAddActorClick, onAddMovieClick }) {
     <div className="flex items-center justify-between relative">
       <input
         type="text"
-        className="border-2 dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-main dark:text-white transition bg-transparent rounded text-lg p-1 outline-none"
+        className="border-2 dark:border-dark-subtle border-light-subtle dark:focus:border-white focus:border-main dark:text-white transition
+         bg-transparent rounded text-lg p-1 outline-none"
         placeholder="Search Movies..."
       />
 
@@ -79,7 +80,7 @@ const CreateOptions = ({ options, visible, onClose }) => {
     <div
       id={containerID}
       ref={container}
-      className="absolute right-0 top-12 flex flex-col space-y-3 p-5 dark:bg-second bg-white drop-shadow-lg rounded animate-scale"
+      className="absolute right-0 z-50 top-12 flex flex-col space-y-3 p-5 dark:bg-second bg-white drop-shadow-lg rounded animate-scale"
       onAnimationEnd={(e) => {
         if (e.target.classList.contains("animate-scale-reverse")) onClose();
         e.target.classList.remove("animate-scale");

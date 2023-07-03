@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNotification } from "../../hooks";
 import {
   languageOptions,
@@ -37,7 +37,7 @@ const defaultMovieInfo = {
   status: "",
 };
 
-export default function MovieForm({ busy, onSubmit }) {
+export default function MovieForm({ busy, btnTitle, initialState, onSubmit }) {
   const [movieInfo, setMovieInfo] = useState({ ...defaultMovieInfo });
   const [showWritersModal, setShowWritersModal] = useState(false);
   const [showCastModal, setShowCastModal] = useState(false);
@@ -48,7 +48,6 @@ export default function MovieForm({ busy, onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(movieInfo);
     const { error } = validateMovie(movieInfo);
     if (error) return updateNotification("error", error);
 
@@ -175,6 +174,17 @@ export default function MovieForm({ busy, onSubmit }) {
     setMovieInfo({ ...movieInfo, cast: [...newCast] });
   };
 
+  useEffect(() => {
+    if (initialState) {
+      setMovieInfo({
+        ...initialState,
+        releseDate: initialState.releseDate.split("T")[0],
+        poster: null,
+      });
+      setSelectedPosterForUI(initialState.poster);
+    }
+  }, [initialState]);
+
   const {
     title,
     storyLine,
@@ -263,7 +273,7 @@ export default function MovieForm({ busy, onSubmit }) {
 
           <Submit
             busy={busy}
-            value="Upload"
+            value={btnTitle}
             onClick={handleSubmit}
             type="button"
           />

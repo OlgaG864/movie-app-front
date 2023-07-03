@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { commonInputClasses } from "../../utils/theme";
+import React, { useEffect, useState } from "react";
 import { useNotification } from "../../hooks";
+import { commonInputClasses } from "../../utils/theme";
 import PosterSelector from "../PosterSelector";
 import Selector from "../Selector";
 
@@ -27,7 +27,13 @@ const validateActor = ({ avatar, name, about, gender }) => {
   return { error: null };
 };
 
-export default function ActorForm({ title, btnTitle, busy, onSubmit }) {
+export default function ActorForm({
+  title,
+  initialState,
+  btnTitle,
+  busy,
+  onSubmit,
+}) {
   const [actorInfo, setActorInfo] = useState({ ...defaultActorInfo });
   const [selectedAvatarForUI, setSelectedAvatarForUI] = useState("");
   const { updateNotification } = useNotification();
@@ -53,6 +59,7 @@ export default function ActorForm({ title, btnTitle, busy, onSubmit }) {
     const { error } = validateActor(actorInfo);
     if (error) return updateNotification("error", error);
 
+    // submit form
     const formData = new FormData();
     for (let key in actorInfo) {
       if (key) formData.append(key, actorInfo[key]);
@@ -60,10 +67,17 @@ export default function ActorForm({ title, btnTitle, busy, onSubmit }) {
     onSubmit(formData);
   };
 
+  useEffect(() => {
+    if (initialState) {
+      setActorInfo({ ...initialState, avatar: null });
+      setSelectedAvatarForUI(initialState.avatar);
+    }
+  }, [initialState]);
+
   const { name, about, gender } = actorInfo;
   return (
     <form
-      className="dark:bg-main bg-white p-3 w-[35rem] rounded"
+      className="dark:bg-primary bg-white p-3 w-[35rem] rounded"
       onSubmit={handleSubmit}
     >
       <div className="flex justify-between items-center mb-3">

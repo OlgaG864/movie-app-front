@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { getActors } from "../../api/actor";
-import { useNotification } from "../../hooks";
+import { deleteActor, getActors, searchActor } from "../../api/actor";
+import { useNotification, useSearch } from "../../hooks";
+import AppSearchForm from "../form/AppSearchForm";
 import UpdateActor from "../models/UpdateActor";
 import NextAndPrevButton from "../NextAndPrevButton";
+import ConfirmModal from "../models/ConfirmModal";
 
 let currentPageNo = 0;
 const limit = 20;
 
 export default function Actors() {
   const [actors, setActors] = useState([]);
+  const [results, setResults] = useState([]);
   const [reachedToEnd, setReachedToEnd] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const { updateNotification } = useNotification();
+  const { handleSearch } = useSearch();
+  const [busy, setBusy] = useState(false);
 
   const fetchActors = async (pageNo) => {
     const { profiles, error } = await getActors(pageNo, limit);
@@ -49,6 +55,39 @@ export default function Actors() {
     setShowUpdateModal(false);
   };
 
+  const handleOnSearchSubmit = (value) => {
+    handleSearch(searchActor, value, setResults);
+  };
+
+  const handleOnActorUpdate = (profile) => {
+    const updatedActors = actors.map((actor) => {
+      if (profile.id === actor.id) {
+        return profile;
+      }
+
+      return actor;
+    });
+
+    setActors([...updatedActors]);
+  };
+
+  const handleOnDeleteClick = (profile) => {
+    setSelectedProfile(profile);
+    setShowConfirmModal(true);
+  };
+
+  const handleOnDeleteConfirm = async () => {
+    setBusy(true);
+    const { error, message } = await deleteActor(selectedProfile.id);
+    setBusy(false);
+    if (error) return updateNotification("error", error);
+    updateNotification("success", message);
+    hideConfirmModal();
+    fetchActors(currentPageNo);
+  };
+
+  const hideConfirmModal = () => setShowConfirmModal(false);
+
   useEffect(() => {
     fetchActors(currentPageNo);
   }, []);
@@ -56,27 +95,55 @@ export default function Actors() {
   return (
     <>
       <div className="p-5">
-        <div className="grid grid-cols-4 gap-5 p-5">
-          {actors.map((actor) => (
-            <ActorProfile
-              onEditClick={() => handleOnEditClick(actor)}
-              profile={actor}
-              key={actor.id}
-            />
-          ))}
+        <div className="flex justify-end mb-5">
+          <AppSearchForm
+            onSubmit={handleOnSearchSubmit}
+            placeholder="Search Actors..."
+          />
+        </div>
+        <div className="grid grid-cols-3 gap-5">
+          {results.length
+            ? results.map((actor) => (
+                <ActorProfile
+                  profile={actor}
+                  key={actor.id}
+                  onEditClick={() => handleOnEditClick(actor)}
+                  onDeleteClick={() => handleOnDeleteClick(actor)}
+                />
+              ))
+            : actors.map((actor) => (
+                <ActorProfile
+                  profile={actor}
+                  key={actor.id}
+                  onEditClick={() => handleOnEditClick(actor)}
+                  onDeleteClick={() => handleOnDeleteClick(actor)}
+                />
+              ))}
         </div>
 
-        <NextAndPrevButton
-          className="mt-5"
-          onNextClick={handleOnNextClick}
-          onPrevClick={handleOnPrevClick}
-        />
+        {!results.length ? (
+          <NextAndPrevButton
+            className="mt-5"
+            onNextClick={handleOnNextClick}
+            onPrevClick={handleOnPrevClick}
+          />
+        ) : null}
       </div>
+
+      <ConfirmModal
+        visible={showConfirmModal}
+        title="Are you sure?"
+        subtitle="This action will remove this profile permanently!"
+        busy={busy}
+        onConfirm={handleOnDeleteConfirm}
+        onCancel={hideConfirmModal}
+      />
 
       <UpdateActor
         visible={showUpdateModal}
         onClose={hideUpdateModal}
         initialState={selectedProfile}
+        onSuccess={handleOnActorUpdate}
       />
     </>
   );
@@ -134,7 +201,6 @@ const ActorProfile = ({ profile, onEditClick, onDeleteClick }) => {
     </div>
   );
 };
-
 const Options = ({ visible, onDeleteClick, onEditClick }) => {
   if (!visible) return null;
 

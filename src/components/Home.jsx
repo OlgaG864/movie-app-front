@@ -13,7 +13,6 @@ export default function Home() {
         <NotVerified />
         <Slide></Slide>
         <div className="space-y-3 py-8">
-          <TopRatedMovies />
           <TopRatedWebSeries />
           <TopRatedTVSeries />
         </div>

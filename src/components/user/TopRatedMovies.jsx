@@ -21,7 +21,7 @@ export default function TopRatedMovies() {
   return (
     <GridContainer>
       {movies.map((_, index) => {
-        return <div className="p-5 bg-red-200" key={index}></div>;
+        return <div className="p-5" key={index}></div>;
       })}
     </GridContainer>
   );

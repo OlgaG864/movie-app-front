@@ -94,8 +94,8 @@ const TrailerSelector = ({ visible, handleChange, onTypeError }) => {
         onTypeError={onTypeError}
         types={["mp4", "avi"]}
       >
-        <div className="w-48 h-48 border border-dashed dark:border-dark-subtle border-light-subtle rounded-full flex flex-col items-center justify-center dark:text-dark-subtle text-second cursor-pointer">
-          <i className="bi bi-cloud-upload-fill"></i>
+        <div className="w-48 h-48 border border-dashed dark:border-dark-subtle border-light-subtle rounded-full flex flex-col items-center justify-center dark:text-white text-second cursor-pointer">
+          <i className="bi bi-cloud-plus text-black text-xl"></i>
           <p>Drop your file here!</p>
         </div>
       </FileUploader>
@@ -107,7 +107,7 @@ const UploadProgress = ({ width, message, visible }) => {
   if (!visible) return null;
 
   return (
-    <div className="dark:bg-second bg-white drop-shadow-lg rounded p-3">
+    <div className="dark:bg-second  drop-shadow-lg rounded p-3">
       <div className="relative h-3 dark:bg-dark-subtle bg-light-subtle overflow-hidden">
         <div
           style={{ width: width + "%" }}

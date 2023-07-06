@@ -11,6 +11,7 @@ import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import { useAuth } from "./hooks";
 import AdminNavigator from "./navigator/AdminNavigator";
+import MovieReviews from "./components/user/MovieReviews";
 
 function App() {
   const { authInfo } = useAuth();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/reset-password" element={<ConfirmPassword />} />
         <Route path="/movie/:movieId" element={<SingleMovie />} />
+        <Route path="/movie/reviews/:movieId" element={<MovieReviews />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

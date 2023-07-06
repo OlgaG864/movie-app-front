@@ -43,9 +43,6 @@ const MovieListItem = ({ movie, onDeleteClick, onEditClick, onOpenClick }) => {
               <button onClick={onEditClick} type="button">
                 <i className="bi bi-pen-fill"></i>
               </button>
-              <button onClick={onOpenClick} type="button">
-                <i className="bi bi-folder2-open"></i>
-              </button>
             </div>
           </td>
         </tr>

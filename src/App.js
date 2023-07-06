@@ -6,6 +6,7 @@ import EmailVerification from "./components/auth/EmailVerification";
 import ForgetPassword from "./components/auth/ForgetPassword";
 import ConfirmPassword from "./components/auth/ConfirmPassword";
 import Home from "./components/Home";
+import SingleMovie from "./components/user/SingleMovie";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
 import { useAuth } from "./hooks";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/verification" element={<EmailVerification />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/reset-password" element={<ConfirmPassword />} />
+        <Route path="/movie/:movieId" element={<SingleMovie />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

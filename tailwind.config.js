@@ -7,8 +7,9 @@ module.exports = {
       colors: {
         main: "#171717",
         second: "#272727",
-        "dark-subtle": "rgba(255,255,255,0.5)",
-        "light-subtle": "rgba(39,39,39,0.5)",
+        "dark-subtle": "rgba(255, 255, 255, 0.5)",
+        "light-subtle": "rgba(39, 39, 39, 0.5)",
+        "highlight-dark": "#ffc200",
       },
     },
   },

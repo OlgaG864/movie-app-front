@@ -59,7 +59,6 @@ export default function Signup() {
   };
 
   useEffect(() => {
-    // we want to move our user to somewhere else
     if (isLoggedIn) navigate("/");
   }, [isLoggedIn]);
 

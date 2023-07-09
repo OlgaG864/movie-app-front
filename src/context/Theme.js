@@ -2,8 +2,8 @@ import React, { createContext, useEffect } from "react";
 
 export const ThemeContext = createContext();
 
-const defaultTheme = "dark";
-const darkTheme = "light";
+const defaultTheme = "light";
+const darkTheme = "dark";
 
 export default function Theme({ children }) {
   const toggleTheme = () => {

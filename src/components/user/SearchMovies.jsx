@@ -33,7 +33,7 @@ export default function SearchMovies() {
   }, [query]);
 
   return (
-    <div className="dark:bg-main text-white min-h-screen py-8">
+    <div className="dark:bg-main bg-white min-h-screen py-8">
       <Container className="px-2 xl:p-0">
         <NotFoundText text="Record not found!" visible={resultNotFound} />
         <MovieList movies={movies} />

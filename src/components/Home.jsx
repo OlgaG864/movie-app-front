@@ -9,10 +9,11 @@ import Slide from "./user/Slide";
 export default function Home() {
   return (
     <div className="dark:bg-main min-h-screen">
-      <Container className="px-2 xl:p-3">
+      <Container className="px-2 xl:p-1">
         <NotVerified />
-        <Slide></Slide>
+        <Slide />
         <div className="space-y-3 py-8">
+          <TopRatedMovies />
           <TopRatedWebSeries />
           <TopRatedTVSeries />
         </div>

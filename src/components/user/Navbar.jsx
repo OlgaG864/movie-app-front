@@ -16,12 +16,12 @@ export default function Navbar() {
   return (
     <>
       <div className="bg-second shadow-sm shadow-gray-500">
-        <Container className=" p-2">
+        <Container className="p-2">
           <div className="flex justify-between items-center">
             <Link to="/">
-              <li className="text-white text-xl outline-none">
+              <div className="text-white text-xl">
                 5<i className="bi bi-stars text-xl text-white">Movie</i>
-              </li>
+              </div>
             </Link>
             <ul className="flex items-center sm:space-x-4 space-x-2">
               <li>

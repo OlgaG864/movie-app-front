@@ -172,7 +172,7 @@ const ActorProfile = ({ profile, onEditClick, onDeleteClick }) => {
   if (!profile) return null;
 
   return (
-    <div className="bg-white shadow dark:shadow dark:bg-second rounded h-55 overflow-hidden">
+    <div className="bg-white shadow dark:shadow dark:bg-second rounded h-20 overflow-hidden">
       <div
         onMouseEnter={handleOnMouseEnter}
         onMouseLeave={handleOnMouseLeave}
@@ -185,10 +185,10 @@ const ActorProfile = ({ profile, onEditClick, onDeleteClick }) => {
         />
 
         <div className="px-2">
-          <h1 className="text-xl text-main dark:text-white font-semibold whitespace-nowrap">
+          <h1 className="text-xl text-main dark:text-main font-semibold whitespace-nowrap">
             {getName(name)}
           </h1>
-          <p className="text-main dark:text-white opacity-70">
+          <p className="text-main dark:text-main opacity-70">
             {about.substring(0, 50)}
           </p>
         </div>

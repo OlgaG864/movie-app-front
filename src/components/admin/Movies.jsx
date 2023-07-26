@@ -61,9 +61,7 @@ export default function Movies() {
   };
 
   const handleOnDeleteConfirm = async () => {
-    setBusy(true);
     const { error, message } = await deleteMovie(selectedMovie.id);
-    setBusy(false);
 
     if (error) return updateNotification("error", error);
 

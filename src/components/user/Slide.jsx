@@ -26,7 +26,7 @@ export default function Slide() {
   };
 
   const startSlideShow = () => {
-    intervalId = setInterval(handleOnNextClick, 2500);
+    intervalId = setInterval(handleOnNextClick, 1500);
   };
 
   const pauseSlideShow = () => {
